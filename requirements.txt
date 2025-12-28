@@ -1,0 +1,24 @@
+# Core dependencies
+pandas>=1.5.0
+numpy>=1.24.0
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+spacy>=3.5.0
+
+# Neo4j
+neo4j>=5.14.0
+
+# Groq API
+groq>=0.3.0
+
+# Web framework for UI
+streamlit>=1.28.0
+streamlit-option-menu>=0.3.6
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pyvis>=0.3.1
+
+# NLP
+sentence-transformers>=2.2.0

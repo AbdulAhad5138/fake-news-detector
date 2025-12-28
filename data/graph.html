@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#4ECDC4", "font": {"color": "black"}, "id": "religious liberty bill passes ...", "label": "religious liberty bill passes ...", "shape": "dot", "size": 25, "title": "religious liberty bill passes georgia state legislature"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "religious", "label": "religious", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "liberty", "label": "liberty", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "georgia", "label": "georgia", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "legislature", "label": "legislature", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "elite nazi allied order from h...", "label": "elite nazi allied order from h...", "shape": "dot", "size": 25, "title": "elite nazi allied order from hungary claims trump adviser sebastian gorka is sworn member"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "hungary", "label": "hungary", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "adviser", "label": "adviser", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "sebastian", "label": "sebastian", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "italy government wins all five...", "label": "italy government wins all five...", "shape": "dot", "size": 25, "title": "italy government wins all five confidence votes on electoral law"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "government", "label": "government", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "south koreans support for nucl...", "label": "south koreans support for nucl...", "shape": "dot", "size": 25, "title": "south koreans support for nuclear projects deals blow to government energy plan"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "french government spokesman ge...", "label": "french government spokesman ge...", "shape": "dot", "size": 25, "title": "french government spokesman gets macron s backing to lead party"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "stop gap bill to avoid governm...", "label": "stop gap bill to avoid governm...", "shape": "dot", "size": 25, "title": "stop gap bill to avoid government shutdown fails senate procedural vote"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "confidence", "label": "confidence", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "electoral", "label": "electoral", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "explain your results, beaten a...", "label": "explain your results, beaten a...", "shape": "dot", "size": 25, "title": "explain your results, beaten angola party head tells electoral commission"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "conservative mom and cruz supp...", "label": "conservative mom and cruz supp...", "shape": "dot", "size": 25, "title": "conservative mom and cruz supporter goes all in for trump and here s why"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "conservative", "label": "conservative", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "supporter", "label": "supporter", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "trump supporter there will be ...", "label": "trump supporter there will be ...", "shape": "dot", "size": 25, "title": "trump supporter there will be civil war whether trump wins or not"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "communist george soros says tr...", "label": "communist george soros says tr...", "shape": "dot", "size": 25, "title": "communist george soros says trump will win popular vote in landslide, but hillary wins presidency hu"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "communist", "label": "communist", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "popular", "label": "popular", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "landslide", "label": "landslide", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "hillary", "label": "hillary", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "best ever crooked hillary coll...", "label": "best ever crooked hillary coll...", "shape": "dot", "size": 25, "title": "best ever crooked hillary collection of lies and flip flops video"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "elizabeth warren has found bre...", "label": "elizabeth warren has found bre...", "shape": "dot", "size": 25, "title": "elizabeth warren has found breathtaking hypocrisy in fbi s treatment of hillary s emails"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "presidency", "label": "presidency", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "highlights the trump presidenc...", "label": "highlights the trump presidenc...", "shape": "dot", "size": 25, "title": "highlights the trump presidency on january 27 at 6 11 p.m. est 2311 gmt"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "second twin falls sexual assau...", "label": "second twin falls sexual assau...", "shape": "dot", "size": 25, "title": "second twin falls sexual assault case mohammed hussein i. eldai faces felony charges for sexual assa"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "assault", "label": "assault", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "mohammed", "label": "mohammed", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "hussein", "label": "hussein", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "charges", "label": "charges", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "ex u.s. spy chiefs urge congre...", "label": "ex u.s. spy chiefs urge congre...", "shape": "dot", "size": 25, "title": "ex u.s. spy chiefs urge congress to renew internet surveillance law"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "congress", "label": "congress", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "obama turns focus to u.s. cong...", "label": "obama turns focus to u.s. cong...", "shape": "dot", "size": 25, "title": "obama turns focus to u.s. congress as he campaigns for clinton"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "internet", "label": "internet", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "surveillance", "label": "surveillance", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "brazil struggles to help state...", "label": "brazil struggles to help state...", "shape": "dot", "size": 25, "title": "brazil struggles to help state dependent on venezuela for power"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "struggles", "label": "struggles", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "dependent", "label": "dependent", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "venezuela", "label": "venezuela", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "venezuela s maduro thanks puti...", "label": "venezuela s maduro thanks puti...", "shape": "dot", "size": 25, "title": "venezuela s maduro thanks putin for support in difficult times"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "kerry launches talks with vene...", "label": "kerry launches talks with vene...", "shape": "dot", "size": 25, "title": "kerry launches talks with venezuela but backs disputed referendum"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "support", "label": "support", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#4ECDC4", "font": {"color": "black"}, "id": "yemeni al qaeda leader calls f...", "label": "yemeni al qaeda leader calls f...", "shape": "dot", "size": 25, "title": "yemeni al qaeda leader calls for attacks in support of myanmar s rohingya"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "difficult", "label": "difficult", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "state dept. releases 7,000 cli...", "label": "state dept. releases 7,000 cli...", "shape": "dot", "size": 25, "title": "state dept. releases 7,000 clinton e mails but the white house refuses to release the most important"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "releases", "label": "releases", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "whoa! dnc releases statement s...", "label": "whoa! dnc releases statement s...", "shape": "dot", "size": 25, "title": "whoa! dnc releases statement suggesting dallas sniper and black lives matter protesters are linked"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "clinton", "label": "clinton", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FF6B6B", "font": {"color": "black"}, "id": "how to watch the highly antici...", "label": "how to watch the highly antici...", "shape": "dot", "size": 25, "title": "how to watch the highly anticipated clinton cash movie free! thanks to breitbart!"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "refuses", "label": "refuses", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "release", "label": "release", "shape": "diamond", "size": 15, "title": "Type: Extracted"}, {"color": "#FFD93D", "font": {"color": "black"}, "id": "important", "label": "important", "shape": "diamond", "size": 15, "title": "Type: Extracted"}]);
+                  edges = new vis.DataSet([{"from": "religious liberty bill passes ...", "to": "religious"}, {"from": "religious liberty bill passes ...", "to": "liberty"}, {"from": "religious liberty bill passes ...", "to": "georgia"}, {"from": "religious liberty bill passes ...", "to": "legislature"}, {"from": "elite nazi allied order from h...", "to": "hungary"}, {"from": "elite nazi allied order from h...", "to": "adviser"}, {"from": "elite nazi allied order from h...", "to": "sebastian"}, {"from": "italy government wins all five...", "to": "government"}, {"from": "south koreans support for nucl...", "to": "government"}, {"from": "french government spokesman ge...", "to": "government"}, {"from": "stop gap bill to avoid governm...", "to": "government"}, {"from": "italy government wins all five...", "to": "confidence"}, {"from": "italy government wins all five...", "to": "electoral"}, {"from": "explain your results, beaten a...", "to": "electoral"}, {"from": "conservative mom and cruz supp...", "to": "conservative"}, {"from": "conservative mom and cruz supp...", "to": "supporter"}, {"from": "trump supporter there will be ...", "to": "supporter"}, {"from": "communist george soros says tr...", "to": "communist"}, {"from": "communist george soros says tr...", "to": "popular"}, {"from": "communist george soros says tr...", "to": "landslide"}, {"from": "communist george soros says tr...", "to": "hillary"}, {"from": "best ever crooked hillary coll...", "to": "hillary"}, {"from": "elizabeth warren has found bre...", "to": "hillary"}, {"from": "communist george soros says tr...", "to": "presidency"}, {"from": "highlights the trump presidenc...", "to": "presidency"}, {"from": "second twin falls sexual assau...", "to": "assault"}, {"from": "second twin falls sexual assau...", "to": "mohammed"}, {"from": "second twin falls sexual assau...", "to": "hussein"}, {"from": "second twin falls sexual assau...", "to": "charges"}, {"from": "ex u.s. spy chiefs urge congre...", "to": "congress"}, {"from": "obama turns focus to u.s. cong...", "to": "congress"}, {"from": "ex u.s. spy chiefs urge congre...", "to": "internet"}, {"from": "ex u.s. spy chiefs urge congre...", "to": "surveillance"}, {"from": "brazil struggles to help state...", "to": "struggles"}, {"from": "brazil struggles to help state...", "to": "dependent"}, {"from": "brazil struggles to help state...", "to": "venezuela"}, {"from": "venezuela s maduro thanks puti...", "to": "venezuela"}, {"from": "kerry launches talks with vene...", "to": "venezuela"}, {"from": "venezuela s maduro thanks puti...", "to": "support"}, {"from": "yemeni al qaeda leader calls f...", "to": "support"}, {"from": "south koreans support for nucl...", "to": "support"}, {"from": "venezuela s maduro thanks puti...", "to": "difficult"}, {"from": "state dept. releases 7,000 cli...", "to": "releases"}, {"from": "whoa! dnc releases statement s...", "to": "releases"}, {"from": "state dept. releases 7,000 cli...", "to": "clinton"}, {"from": "obama turns focus to u.s. cong...", "to": "clinton"}, {"from": "how to watch the highly antici...", "to": "clinton"}, {"from": "state dept. releases 7,000 cli...", "to": "refuses"}, {"from": "state dept. releases 7,000 cli...", "to": "release"}, {"from": "state dept. releases 7,000 cli...", "to": "important"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+# Secrets
+.env
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Neo4j credentials
+neo4j_config.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data files (optional - include if datasets are large)
+data/*.csv
+!data/sample_news.csv  # Keep sample
+data/*.json
+!data/graph_processed.json # Keep small json if needed, but safe to ignore all if in doubt. The user has graph_processed.json as 500KB, which is fine.
+
+# OS
+.DS_Store
+Thumbs.db
