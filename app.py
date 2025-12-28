@@ -212,7 +212,14 @@ if selected == "Dashboard":
     st.title("📊 News Dataset Analysis")
     
     try:
-        df = pd.read_csv('data/cleaned_news.csv')
+        if os.path.exists('data/cleaned_news.csv'):
+            df = pd.read_csv('data/cleaned_news.csv')
+        elif os.path.exists('data/cleaned_news_sample.csv'):
+            df = pd.read_csv('data/cleaned_news_sample.csv')
+            st.info("Showing dashboard with sample data.")
+        else:
+            st.error("Data file not found.")
+            st.stop()
         
         col1, col2, col3 = st.columns(3)
         with col1:
